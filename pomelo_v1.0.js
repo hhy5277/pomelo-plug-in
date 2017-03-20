@@ -12,7 +12,7 @@
         }else if(/^\./.test(selector)){
             selector = selector.substring(1);
             this.node=document.getElementsByClassName(selector);
-        }else if(/^\d*$/.test(selector)){
+        }else if(/^\w*$/.test(selector)){
             this.node=document.getElementsByTagName(selector);
         }
     };
@@ -44,50 +44,65 @@
         }
     };
 //DOM²Ù×÷º¯Êý
-    pomelo.fn.html=function(){
-
-        return this.node.innerHTML;
-    };
-    pomelo.fn.countDown=function(time){
-        var timer;
-        var hours,minutes,seconds;
-        var nowNode=this.node;
-        timer=setInterval(function(){
-            if(time==0){
-                clearInterval(timer);
+    pomelo.init.prototype={
+        p_test:function(){
+            console.log("pomelo plug-in is ready!");
+            return this;
+        },
+        p_html:function(str){
+            if(arguments.length==0){
+                return this.node.innerHTML;
+            }else{
+                var nowNode=this.node;
+                for(var i in nowNode){
+                    nowNode[i].innerHTML=str;
+                }
             }
-            hours=parseInt((time/60)/60);
-            minutes=parseInt((time/60)%60);
-            seconds=parseInt(time%60);
-            hours=hours>9?hours:"0"+hours;
-            minutes=minutes>9?minutes:"0"+minutes;
-            seconds=seconds>9?seconds:"0"+seconds;
-            nowNode.innerHTML=""+hours+":"+minutes+":"+seconds;
-            time--;
-        },1000);
-    };
-    pomelo.fn.toTop=function(){
-        var timer;
-        var nowTop;
-        var nowNode=this.node;
-        function backTo(){
-            var tellScroll;
-            tellScroll=getScrollTop();
-            if (tellScroll==0||tellScroll>nowTop){
-                clearInterval(timer)
-            }else {
-                changeScrollTop(-500);
+            return this;
+        },
+        p_toTop:function(){
+            var timer;
+            var nowTop;
+            var nowNode=this.node;
+            function backTo(){
+                var tellScroll;
+                tellScroll=getScrollTop();
+                if (tellScroll==0||tellScroll>nowTop){
+                    clearInterval(timer)
+                }else {
+                    changeScrollTop(-500);
+                    nowTop=getScrollTop();
+                }
+            }
+            function backup(){
                 nowTop=getScrollTop();
+                timer=setInterval(backTo,50)
             }
+            (function doBack(){
+                nowNode.onclick=backup;
+            })();
+            return this;
+        },
+        p_countDown:function(time){
+            var timer;
+            var hours,minutes,seconds;
+            var nowNode=this.node;
+            timer=setInterval(function(){
+                if(time==0){
+                    clearInterval(timer);
+                }
+                hours=parseInt((time/60)/60);
+                minutes=parseInt((time/60)%60);
+                seconds=parseInt(time%60);
+                hours=hours>9?hours:"0"+hours;
+                minutes=minutes>9?minutes:"0"+minutes;
+                seconds=seconds>9?seconds:"0"+seconds;
+                nowNode.innerHTML=""+hours+":"+minutes+":"+seconds;
+                time--;
+            },1000);
+            return this;
         }
-        function backup(){
-            nowTop=getScrollTop();
-            timer=setInterval(backTo,50)
-        }
-        function doBack(){
-            nowNode.onclick=backup;
-        }
-        return doBack();
     };
+
     window.pomelo=window.tt=pomelo;
 })();
