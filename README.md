@@ -1,6 +1,6 @@
 # pomelo-plug-in
-基于原生js的，兼容主流浏览器的，带选择器的，包括工具函数和DOM操作函数的前端库.
-持续更新中...
+基于原生js的，兼容主流浏览器的，带选择器的，包括工具函数和DOM操作函数的前端库.<br>
+【持续更新中...跪求点击右上角星星，好人一生平安！】
 <h2>1.pomelo(selector)、tt(selector)</h2>
 选择器，使用方法与jquery相同,pomelo可由tt代替。例如pomelo("#div1")
 <h2>2.getScrollTop()</h2>
