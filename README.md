@@ -9,10 +9,19 @@
 倒计时，time单位为秒。
 <hr>
 <h1>工具函数</h1>
-<h2>1.getScrollTop()</h2>
+<h2>1. getScrollTop()</h2>
 获取垂直滚动条滚动距离。
-<h2>2.changeScrollTop(num)</h2>
+<h2>2. changeScrollTop(num)</h2>
 改变垂直滚动条距离，正数为增加，负数为减少。
+<h2>3. doAjax(obj)</h2>
+ajax函数，参数：method(提交方法)、url(执行路由)、data(提交到服务器的数据)、sync(是否异步)、callback(ajax链接成功后执行的函数)。例：<br>
+      {<br>
+        method:"post",<br>
+        data:"user="+txt+"&pwd="+pwd,<br>
+        url:"/testajax.do",<br>
+        callback:function(xhr){<br>
+          console.log("get ajax communication.")<br>
+        }<br>
 <hr>
 <h1>DOM操作函数</h1>
 <h2>1.pomelo(selector)、tt(selector)</h2>
