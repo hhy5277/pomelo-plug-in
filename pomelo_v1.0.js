@@ -28,6 +28,9 @@
         }
     };
 ///工具函数
+    (function(){
+        console.log("Welcome to pomelo world ! ")
+    })();
     var getScrollTop=pomelo.getScrollTop=function(){
         var fromTop=document.documentElement.scrollTop||document.body.scrollTop||window.pageYOffset;
         return fromTop;
@@ -41,6 +44,35 @@
         }
         else{
             window.pageYOffset+=num;
+        }
+    };
+    var doAjax=pomelo.doAjax=function(obj){
+        var xhr;
+        if(typeof obj.callback!="function"){
+            throw "callback is not a function";
+        }
+        if(window.XMLHttpRequest){
+            xhr=new XMLHttpRequest();
+        }else{
+            xhr=new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                    obj.callback(xhr);
+            }
+        };
+        if(obj.method=="get"){
+            obj.url = obj.url+"?"+obj.data;
+        }
+        if(obj.sync==undefined){
+            obj.sync=true;
+        }
+        xhr.open(obj.method,obj.url,obj.sync);
+        if(obj.method=="post"){
+            xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+            xhr.send(obj.data);
+        }else{      //get
+            xhr.send(null);
         }
     };
 //DOM操作函数
@@ -100,6 +132,24 @@
                 nowNode.innerHTML=""+hours+":"+minutes+":"+seconds;
                 time--;
             },1000);
+            return this;
+        },
+        p_get:function(){
+            return this.node;
+        },
+        p_val:function(){
+            return this.node.value;
+        },
+        p_click:function(fun){
+            this.node.onclick=fun;
+            return this;
+        },
+        p_mouseover:function(fun){
+            this.node.onmouseover=fun;
+            return this;
+        },
+        p_mouseout:function(fun){
+            this.node.onmouseout=fun;
             return this;
         }
     };
