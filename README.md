@@ -20,7 +20,7 @@ ajax函数，参数：method(提交方法)、url(执行路由)、data(提交到�
              data:"user="+txt+"&pwd="+pwd,<br>
              url:"/testajax.do",<br>
              callback:function(xhr){<br>
-                console.log("get ajax communication.")<br>
+                console.log(xhr.responseText)<br>
              });<br>
 <hr>
 <h1>DOM操作函数</h1>
